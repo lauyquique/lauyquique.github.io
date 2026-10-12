@@ -1,0 +1,22 @@
+# El repositorio de GitHub Pages es PÚBLICO.
+# Aquí se lista todo lo que se queda solo en el ordenador y no se publica.
+
+# Fotos originales y PowerPoint de la pareja
+material/
+
+# Notas internas: benchmark, decisiones y pendientes (incluyen el IBAN)
+documentacion/
+
+# Scripts de apoyo: no hacen falta para que la web funcione
+herramientas/
+fotos-originales/
+
+# Manual de uso: lleva el IBAN y las instrucciones internas
+README.md
+
+# Basura del sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+*.psd
+__pycache__/

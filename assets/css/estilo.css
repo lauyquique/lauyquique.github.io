@@ -1,0 +1,529 @@
+/* =========================================================================
+   Boda Lau y Quique — 13 de marzo de 2027
+   Hoja de estilos única. Sin frameworks, sin dependencias, sin build.
+   Orden: 1) tipografías  2) variables  3) base  4) piezas  5) secciones
+          6) escritorio  7) accesibilidad e impresión
+   ========================================================================= */
+
+/* 1 — TIPOGRAFÍAS ---------------------------------------------------------
+   Como en el PowerPoint de la pareja: Aptos para títulos y textos.
+   Aptos es de Microsoft y no se puede servir como fuente web: se usa si el
+   dispositivo la tiene y, si no, Inter (autoalojada), que es de la misma familia
+   de palo seco neutro. Los nombres y la fecha manuscritos van en SVG.
+   ------------------------------------------------------------------------ */
+@font-face{
+  font-family:'Inter';font-style:normal;font-weight:300 700;font-display:swap;
+  src:url('../fonts/inter-latin.woff2') format('woff2');
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face{
+  font-family:'Inter';font-style:normal;font-weight:300 700;font-display:swap;
+  src:url('../fonts/inter-latin-ext.woff2') format('woff2');
+  unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+
+/* 2 — VARIABLES ---------------------------------------------------------- */
+:root{
+  color-scheme:light;
+
+  /* Rayas: colores muestreados del fondo del PowerPoint de la pareja */
+  --raya-azul:#72B4EA;
+  --raya-clara:#AFD5F7;
+
+  --hueso:#FCFDFE;          /* fondo de las hojas */
+  --hueso-2:#F2F7FC;        /* hoja alterna, con un punto de azul */
+  --papel:#FFFFFF;
+  --tinta:#15202E;
+  --tinta-media:#3B4859;
+  --tinta-suave:#526073;
+  --marino:#1D4B7C;
+  --marino-osc:#133456;
+  --marino-claro:#4A6A8E;
+  --oro:#7F6226;
+  --oro-claro:#C3A768;
+  --linea:#D3DFEC;
+  --linea-fina:#E2EAF3;
+
+  --canto:clamp(16px,3.5vw,24px);   /* margen de rayas alrededor de cada hoja */
+  --raya:12px;                      /* ancho de una pareja de rayas (clara + azul) */
+  --radio-hoja:6px;
+
+  --sans:'Aptos','Inter',system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  --serif:var(--sans);
+
+  --ancho:1140px;
+  --ancho-texto:63ch;
+  --radio:2px;
+  --radio-g:4px;
+
+  --e1:.5rem; --e2:1rem; --e3:1.5rem; --e4:2rem;
+  --e5:3rem; --e6:4.5rem; --e7:6.5rem; --e8:9rem;
+
+  --sombra:0 1px 2px rgba(19,52,86,.05),0 8px 28px -12px rgba(19,52,86,.18);
+  --transicion:180ms cubic-bezier(.2,.6,.3,1);
+}
+
+/* 3 — BASE --------------------------------------------------------------- */
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:5.5rem}
+body{
+  margin:0;
+  background-color:var(--raya-clara);
+  /* Una pareja de rayas (45 % clara, 55 % azul, como en el PowerPoint) repetida y centrada,
+     para que a los dos lados de cada hoja se vean rayas completas y simétricas */
+  background-image:linear-gradient(90deg,var(--raya-clara) 0 45%,var(--raya-azul) 45% 100%);
+  background-size:var(--raya) 100%;
+  background-position:center top;
+  color:var(--tinta);
+  font-family:var(--sans);
+  font-size:1.0625rem;
+  line-height:1.65;
+  font-weight:400;
+  letter-spacing:-.003em;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--marino);text-decoration-thickness:1px;text-underline-offset:.22em}
+a:hover{color:var(--marino-osc)}
+h1,h2,h3,h4{
+  font-family:var(--serif);
+  font-weight:700;
+  line-height:1.15;
+  letter-spacing:-.01em;
+  margin:0;
+  text-wrap:balance;
+}
+p{margin:0 0 var(--e2)}
+p:last-child{margin-bottom:0}
+::selection{background:var(--oro-claro);color:var(--tinta)}
+
+.contenedor{width:100%;max-width:var(--ancho);margin-inline:auto;padding-inline:clamp(1.25rem,5vw,2.5rem)}
+.medida{max-width:var(--ancho-texto)}
+
+.saltar{
+  position:absolute;left:-9999px;top:0;z-index:200;
+  background:var(--marino);color:#fff;padding:.9rem 1.25rem;border-radius:0 0 var(--radio-g) 0;
+  font-weight:600;text-decoration:none;
+}
+.saltar:focus{left:0}
+
+/* 4 — PIEZAS ------------------------------------------------------------- */
+.numeral{
+  font-family:var(--sans);font-size:.72rem;font-weight:700;letter-spacing:.2em;
+  color:var(--marino-claro);display:block;margin-bottom:.6rem;
+}
+
+/* Botones */
+.boton{
+  display:inline-flex;align-items:center;justify-content:center;gap:.55rem;
+  min-height:52px;padding:.85rem 1.6rem;
+  font-family:var(--sans);font-size:1rem;font-weight:600;
+  border-radius:var(--radio-g);border:1.5px solid transparent;
+  text-decoration:none;cursor:pointer;text-align:center;
+  transition:background var(--transicion),border-color var(--transicion),color var(--transicion),transform var(--transicion);
+}
+.boton--principal{background:var(--marino);color:#fff;border-color:var(--marino)}
+.boton--principal:hover{background:var(--marino-osc);border-color:var(--marino-osc);color:#fff}
+.boton--secundario{background:transparent;color:var(--marino);border-color:var(--linea)}
+.boton--secundario:hover{background:var(--papel);border-color:var(--marino-claro);color:var(--marino-osc)}
+.boton--claro{background:var(--papel);color:var(--marino);border-color:var(--linea)}
+.boton--claro:hover{background:#fff;border-color:var(--marino-claro)}
+.boton:active{transform:translateY(1px)}
+.boton svg{flex:none;width:19px;height:19px;stroke-width:1.6}
+
+.botonera{display:flex;flex-wrap:wrap;gap:.75rem}
+
+a:focus-visible,button:focus-visible,summary:focus-visible,
+input:focus-visible,select:focus-visible,textarea:focus-visible,[tabindex]:focus-visible{
+  outline:3px solid var(--oro);
+  outline-offset:3px;
+  border-radius:var(--radio);
+}
+
+/* Filete ornamental */
+.filete{display:flex;align-items:center;justify-content:center;gap:1rem;margin:var(--e4) auto}
+.filete::before,.filete::after{content:'';height:1px;width:min(70px,12vw);background:var(--linea)}
+.filete svg{width:22px;height:22px;color:var(--oro-claro);flex:none}
+
+/* Barra superior fija */
+.barra{
+  position:fixed;inset:0 0 auto 0;z-index:100;
+  background:rgba(252,253,254,.95);
+  backdrop-filter:saturate(150%) blur(10px);
+  -webkit-backdrop-filter:saturate(150%) blur(10px);
+  border-bottom:1px solid transparent;
+  transform:translateY(-102%);
+  transition:transform 260ms cubic-bezier(.2,.7,.3,1),border-color 260ms;
+}
+.barra.visible{transform:none;border-bottom-color:var(--linea-fina)}
+.barra__caja{display:flex;align-items:center;gap:var(--e2);min-height:60px;padding-block:.5rem}
+.barra__marca{
+  font-family:var(--sans);font-size:.98rem;font-weight:700;letter-spacing:-.005em;color:var(--tinta);text-decoration:none;
+  min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  padding-block:.6rem;line-height:1.6;
+}
+.barra__marca span{color:var(--tinta-suave);font-family:var(--sans);font-size:.8rem;letter-spacing:.02em}
+.barra__nav{display:none;margin-left:auto;gap:.15rem}
+.barra__nav a{
+  font-size:.9rem;color:var(--tinta-media);text-decoration:none;
+  padding:.6rem .7rem;border-radius:var(--radio);white-space:nowrap;
+}
+.barra__nav a:hover{color:var(--marino);background:var(--hueso-2)}
+.barra .boton{margin-left:auto;min-height:44px;padding:.55rem 1.1rem;font-size:.92rem;gap:0}
+.barra__nav+.boton{margin-left:.5rem}
+/* En pantallas muy estrechas la barra se queda con lo imprescindible */
+@media (max-width:420px){
+  .barra__marca span,
+  .barra__mas{display:none}
+  .barra .boton{padding:.55rem .95rem}
+}
+
+.tarjeta{
+  background:var(--papel);
+  border:1px solid var(--linea-fina);
+  border-radius:var(--radio-g);
+  box-shadow:var(--sombra);
+}
+
+.figura{margin:0}
+.figura img{
+  width:100%;border-radius:var(--radio-g);
+  background:var(--hueso-2);
+  border:1px solid var(--linea-fina);
+}
+.figura--vertical{max-width:460px;margin-inline:auto}
+.figura figcaption{
+  font-size:.82rem;color:var(--tinta-suave);margin-top:.7rem;
+}
+
+/* Desplegables (historia y preguntas) */
+.desplegable{border-top:1px solid var(--linea-fina)}
+.desplegable:last-of-type{border-bottom:1px solid var(--linea-fina)}
+.desplegable>summary{
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  padding:1.15rem .25rem;min-height:52px;
+  cursor:pointer;list-style:none;
+  font-weight:600;font-size:1.02rem;color:var(--tinta);
+}
+.desplegable>summary::-webkit-details-marker{display:none}
+.desplegable>summary::after{
+  content:'';flex:none;width:11px;height:11px;
+  border-right:1.8px solid var(--marino-claro);border-bottom:1.8px solid var(--marino-claro);
+  transform:rotate(45deg) translateY(-3px);
+  transition:transform var(--transicion);
+}
+.desplegable[open]>summary::after{transform:rotate(-135deg) translateY(-3px)}
+.desplegable>summary:hover{color:var(--marino)}
+.desplegable__cuerpo{padding:0 .25rem 1.4rem;color:var(--tinta-media);max-width:var(--ancho-texto)}
+
+.pendiente{
+  display:inline-flex;align-items:center;gap:.45rem;
+  background:#FBF3E2;color:#725415;border:1px solid #E5D2A4;
+  border-radius:var(--radio);padding:.22rem .7rem;
+  font-size:.75rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  white-space:nowrap;
+}
+
+/* 5 — SECCIONES ---------------------------------------------------------- */
+/* Cada bloque es una hoja blanca apoyada sobre el fondo de rayas */
+main{display:grid;gap:var(--canto);padding:var(--canto)}
+.portada,.seccion,.pie-hoja{
+  width:100%;max-width:1180px;margin-inline:auto;
+  background:var(--hueso);
+  border-radius:var(--radio-hoja);
+  box-shadow:0 1px 2px rgba(19,52,86,.08),0 18px 44px -24px rgba(19,52,86,.45);
+}
+.pie-hoja{width:calc(100% - 2 * var(--canto));margin-bottom:var(--canto)}
+.seccion{padding-block:var(--e6)}
+.seccion--alterna{background:var(--hueso-2)}
+.seccion__cabecera{margin-bottom:var(--e4)}
+/* Secciones a dos columnas: título fijo a la izquierda, contenido a la derecha */
+.dos-columnas{display:block}
+.seccion h2{font-size:clamp(1.6rem,5.5vw,2.25rem);font-weight:700}
+.seccion h3{font-size:clamp(1.12rem,3.6vw,1.3rem);font-weight:700}
+.intro{font-size:1.08rem;color:var(--tinta-media);max-width:var(--ancho-texto)}
+
+/* Portada — diapositiva 1 del PowerPoint */
+.portada{text-align:center;padding-block:clamp(2.25rem,7vw,4.5rem)}
+.letra{display:block;height:auto;margin-inline:auto;color:var(--marino-osc)}
+.portada__nombres{margin:0;line-height:0}
+.letra--nombres{width:min(88%,600px)}
+.portada__fecha{margin:clamp(.2rem,1vw,.6rem) 0 0;line-height:0}
+.letra--fecha{width:min(64%,340px);color:var(--tinta-media)}
+.portada__frase{
+  font-family:var(--sans);
+  font-size:clamp(1.08rem,3.8vw,1.3rem);
+  font-weight:400;line-height:1.55;
+  color:var(--tinta-media);
+  max-width:36ch;margin:var(--e4) auto 0;
+  text-wrap:pretty;
+}
+.portada__datos{
+  margin:var(--e3) auto 0;
+  font-size:clamp(.74rem,2.8vw,.86rem);font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--tinta-media);
+  text-wrap:balance;
+}
+.cuentaatras{
+  margin-top:var(--e2);
+  font-size:.86rem;color:var(--tinta-suave);letter-spacing:.05em;
+}
+.cuentaatras b{font-weight:600;color:var(--marino);font-variant-numeric:tabular-nums}
+
+/* Tira de fotos tipo fotomatón: 4 fotos en fila sobre una tira de papel blanco,
+   con el mismo margen fino entre fotos y alrededor. Igual en móvil y en ordenador. */
+.franja{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:clamp(4px,1vw,10px);
+  padding:clamp(5px,1.2vw,12px);
+  margin:var(--e4) auto 0;
+  max-width:860px;
+  background:#fff;
+  border:1px solid var(--linea-fina);
+  border-radius:2px;
+  box-shadow:0 1px 2px rgba(19,52,86,.06),0 6px 18px -10px rgba(19,52,86,.28);
+}
+.franja figure{margin:0}
+.franja img{
+  width:100%;aspect-ratio:1/1;object-fit:cover;
+  border-radius:0;
+  background:var(--hueso-2);
+}
+
+/* Lugares */
+.lugar__ficha{margin-bottom:var(--e4)}
+.direccion{font-size:1.06rem;color:var(--tinta-media);margin:0 0 var(--e2)}
+.direccion strong{color:var(--tinta);font-weight:600}
+.hora{
+  display:flex;align-items:baseline;gap:.55rem;flex-wrap:wrap;
+  font-family:var(--sans);font-size:2rem;font-weight:700;color:var(--marino);
+  margin:.35rem 0 var(--e3);letter-spacing:-.02em;
+}
+.hora small{font-family:var(--sans);font-size:.82rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--tinta-suave)}
+
+/* Programa del día */
+.programa{list-style:none;margin:0;padding:0;position:relative}
+.programa::before{
+  content:'';position:absolute;left:.42rem;top:.9rem;bottom:.9rem;
+  width:1px;background:var(--linea);
+}
+.programa li{position:relative;padding:0 0 var(--e3) 2.25rem}
+.programa li:last-child{padding-bottom:0}
+.programa li::before{
+  content:'';position:absolute;left:0;top:.5rem;
+  width:.85rem;height:.85rem;border-radius:50%;
+  background:var(--hueso);border:1.5px solid var(--marino-claro);
+}
+.seccion--alterna .programa li::before{background:var(--hueso-2)}
+.programa li.hito::before{background:var(--marino);border-color:var(--marino)}
+.programa time{
+  display:block;font-family:var(--sans);font-size:.78rem;font-weight:700;
+  letter-spacing:.12em;color:var(--oro);text-transform:uppercase;margin-bottom:.1rem;
+  font-variant-numeric:tabular-nums;
+}
+.programa strong{display:block;font-weight:600;font-size:1.05rem}
+.programa p{font-size:.95rem;color:var(--tinta-suave);margin:.15rem 0 0;max-width:52ch}
+
+/* Autobuses */
+/* Cabecera con el autobús. Rejilla con columnas de tamaño FIJO para el hueco de la
+   imagen: así el dibujo nunca puede empujar ni aplastar el título.
+   Móvil y tablet: [ título | hueco ] y debajo el texto a todo el ancho.
+   Ordenador: el título arriba a todo el ancho y debajo [ texto | hueco ]. */
+.cabecera-bus{
+  --hueco-ancho:52px;
+  --hueco-alto:40px;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) var(--hueco-ancho);
+  grid-template-areas:"titulo hueco" "texto texto";
+  column-gap:1rem;
+  align-items:center;
+}
+.cabecera-bus__titulo{grid-area:titulo}
+.cabecera-bus__texto{grid-area:texto;margin-top:1rem}
+.cabecera-bus__hueco{
+  grid-area:hueco;
+  width:var(--hueco-ancho);height:var(--hueco-alto);
+  justify-self:end;
+}
+.cabecera-bus__hueco img{
+  display:block;width:100%;height:100%;
+  object-fit:contain;object-position:right center;   /* el dibujo se ajusta al hueco sin deformarse */
+}
+@media (min-width:600px){
+  .cabecera-bus{--hueco-ancho:68px;--hueco-alto:52px}
+}
+@media (min-width:900px){
+  .cabecera-bus{
+    --hueco-ancho:128px;--hueco-alto:98px;
+    grid-template-columns:minmax(0,var(--ancho-texto)) minmax(var(--hueco-ancho),1fr);
+    grid-template-areas:"titulo titulo" "texto hueco";
+  }
+}
+.buses{display:grid;gap:var(--e3)}
+.bus{padding:clamp(1.25rem,4vw,1.75rem)}
+.bus h3{margin-bottom:var(--e2);display:flex;align-items:center;gap:.6rem}
+.bus h3 svg{width:22px;height:22px;color:var(--marino-claro);flex:none;stroke-width:1.5}
+.trayecto{list-style:none;margin:0;padding:0}
+.trayecto li{
+  display:grid;grid-template-columns:5.6em 1fr;gap:.9rem;
+  padding:.6rem 0;align-items:start;
+}
+.trayecto li+li{border-top:1px dashed var(--linea-fina)}
+.trayecto .rotulo{
+  font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--tinta-suave);padding-top:.32rem;
+}
+.trayecto .valor{font-weight:500;color:var(--tinta)}
+.trayecto .valor small{display:block;font-weight:400;color:var(--tinta-suave);font-size:.88rem;margin-top:.1rem}
+
+/* RSVP */
+.rsvp{background:var(--marino);color:#fff}
+.rsvp h2{color:#fff}
+.rsvp .numeral{color:#AFC7E2}
+.rsvp .intro{color:#E4EDF7}
+.rsvp a:not(.boton){color:#fff;text-decoration-color:rgba(255,255,255,.55)}
+.rsvp .boton--principal{background:var(--papel);color:var(--marino-osc);border-color:var(--papel)}
+.rsvp .boton--principal:hover{background:#fff;color:var(--marino-osc);border-color:#fff}
+.rsvp .boton--secundario{color:#fff;border-color:rgba(255,255,255,.4)}
+.rsvp .boton--secundario:hover{background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.7)}
+.rsvp a:focus-visible,.rsvp button:focus-visible{outline-color:var(--oro-claro)}
+.formulario{
+  margin-top:var(--e4);background:var(--papel);
+  border-radius:var(--radio-g);overflow:hidden;
+  box-shadow:0 20px 50px -30px rgba(0,0,0,.55);
+}
+.formulario iframe{display:block;width:100%;border:0;min-height:820px;background:var(--papel)}
+.formulario__aviso{padding:clamp(1.5rem,5vw,2.75rem);color:var(--tinta-media);text-align:center}
+.formulario__aviso h3{color:var(--tinta);margin-bottom:var(--e2)}
+.formulario__aviso .medida{margin-inline:auto}
+.plazo{
+  display:inline-flex;align-items:center;gap:.5rem;margin-top:var(--e3);
+  font-size:.92rem;color:#D4E2F1;
+}
+.plazo svg{width:18px;height:18px;flex:none;stroke-width:1.6}
+
+/* Regalo */
+.iban{
+  display:flex;flex-wrap:wrap;align-items:center;gap:.75rem;
+  padding:1.1rem 1.25rem;margin:var(--e3) 0 0;
+  background:var(--papel);border:1px solid var(--linea);border-radius:var(--radio-g);
+}
+.iban__valor{
+  font-family:ui-monospace,'SFMono-Regular',Menlo,Consolas,monospace;
+  font-size:clamp(.95rem,3.4vw,1.12rem);font-weight:600;letter-spacing:.04em;
+  color:var(--tinta);word-break:break-all;flex:1 1 12rem;
+}
+.iban__copiar{min-height:48px;padding:.6rem 1.1rem;font-size:.92rem}
+.iban__aviso{font-size:.88rem;color:var(--tinta-suave);margin-top:.9rem}
+
+/* Cierre */
+.cierre{text-align:center;padding-block:var(--e6) var(--e5)}
+.cierre__nombres{margin:0;line-height:0}
+.letra--cierre{width:min(72%,440px)}
+.cierre p{margin-top:var(--e3);color:var(--tinta-suave)}
+
+.pie{
+  border-top:1px solid var(--linea-fina);
+  margin-inline:clamp(1.25rem,5vw,2.5rem);
+  padding-block:var(--e3);
+  font-size:.82rem;color:var(--tinta-suave);
+  display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;justify-content:space-between;align-items:center;
+}
+.pie a{color:var(--tinta-suave)}
+.pie p{margin:0}
+
+/* Muy estrecho: el trayecto pasa a una sola columna */
+@media (max-width:400px){
+  .trayecto li{grid-template-columns:1fr;gap:.15rem}
+  .trayecto .rotulo{padding-top:0}
+}
+
+/* 6 — ESCRITORIO --------------------------------------------------------- */
+@media (min-width:520px){
+  body{font-size:1.09375rem}
+  .buses{grid-template-columns:1fr 1fr}
+}
+@media (min-width:900px){
+  .seccion{padding-block:var(--e7)}
+  .barra__nav{display:flex}
+  .lugar{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:clamp(2rem,5vw,4rem);align-items:start}
+  .lugar__ficha{margin-bottom:0;position:sticky;top:6rem}
+  .lugar--invertido .lugar__media{order:-1}
+  .dos-columnas{
+    display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);
+    gap:clamp(2rem,5vw,4.5rem);align-items:start;
+  }
+  .dos-columnas>.seccion__cabecera{margin-bottom:0;position:sticky;top:6rem}
+  :root{--raya:26px}
+  .regalo{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(2rem,5vw,4rem);align-items:center}
+  .cierre{padding-block:var(--e7) var(--e6)}
+}
+@media (min-width:1024px){
+  .formulario iframe{min-height:900px}
+}
+
+
+/* 9 — CENTRADOS Y AJUSTES PEDIDOS POR LA PAREJA --------------------------- */
+/* Ceremonia y Celebración: ficha centrada y botones de mapa más pequeños */
+.lugar__ficha{text-align:center}
+.lugar__ficha .botonera{justify-content:center}
+.lugar__ficha .hora{justify-content:center}
+.lugar__ficha .boton{min-height:42px;padding:.5rem 1rem;font-size:.88rem}
+.lugar__ficha .boton svg{width:16px;height:16px}
+
+/* Autobuses: título centrado, con el autobús a su derecha */
+.cabecera-bus{grid-template-areas:"titulo titulo" "texto texto"}
+.cabecera-bus__titulo{text-align:center;padding-inline:calc(var(--hueco-ancho) + .5rem)}
+.cabecera-bus__hueco{grid-area:auto;grid-row:1;grid-column:2}
+/* En pantallas muy estrechas el dibujo se hace algo menor para que el título centrado quepa */
+@media (max-width:380px){
+  .cabecera-bus{--hueco-ancho:40px;--hueco-alto:31px}
+}
+@media (min-width:900px){
+  .cabecera-bus__titulo{padding-inline:0}
+  .cabecera-bus__hueco{grid-row:2;grid-column:2}
+}
+
+/* Confirmación de asistencia y Regalo: cabecera centrada */
+.rsvp .seccion__cabecera{text-align:center}
+.rsvp .intro{margin-inline:auto}
+.regalo>div:first-child{text-align:center}
+.regalo .intro{margin-inline:auto}
+.regalo .iban{justify-content:center}
+
+/* 7 — ACCESIBILIDAD E IMPRESIÓN ------------------------------------------ */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{
+    animation-duration:.001ms!important;animation-iteration-count:1!important;
+    transition-duration:.001ms!important;scroll-behavior:auto!important;
+  }
+}
+@media (prefers-contrast:more){
+  :root{--tinta-suave:#34404F;--tinta-media:#243040;--linea:#9FB3C8;--linea-fina:#B8C8D8}
+}
+
+.solo-lectores{
+  position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+  overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;
+}
+
+@media print{
+  .barra,.franja,.formulario,.boton,.saltar,.filete{display:none!important}
+  body{background:#fff!important;color:#000;font-size:11pt}
+  main{padding:0;gap:0}
+  .portada,.seccion,.pie-hoja{box-shadow:none;border-radius:0;max-width:none}
+  .seccion{padding-block:1.2rem;break-inside:avoid}
+  .seccion--alterna,.rsvp{background:#fff!important;color:#000!important}
+  .rsvp h2,.rsvp .intro,.rsvp .numeral,.rsvp .plazo{color:#000!important}
+  .desplegable__cuerpo{display:block!important}
+  .desplegable>summary::after{display:none}
+  a[href^="http"]::after{content:' (' attr(href) ')';font-size:8pt;color:#444;word-break:break-all}
+  .tarjeta,.iban{border:1px solid #999;box-shadow:none}
+  .figura img{max-height:8cm;object-fit:cover}
+  .cierre{padding-block:1.5rem}
+  .lugar{display:block}
+  .lugar__ficha{position:static}
+}

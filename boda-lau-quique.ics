@@ -1,0 +1,46 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Boda Lau y Quique//ES
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VTIMEZONE
+TZID:Europe/Madrid
+BEGIN:DAYLIGHT
+TZOFFSETFROM:+0100
+TZOFFSETTO:+0200
+TZNAME:CEST
+DTSTART:19700329T020000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:+0200
+TZOFFSETTO:+0100
+TZNAME:CET
+DTSTART:19701025T030000
+RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+UID:boda-lau-quique-20270313@lauyquique.github.io
+DTSTAMP:20260101T000000Z
+DTSTART;TZID=Europe/Madrid:20270313T130000
+DTEND;TZID=Europe/Madrid:20270313T220000
+SUMMARY:Boda de Lau y Quique
+LOCATION:Capilla Gótica del Colegio Nuestra Señora del Pilar\, Calle de
+  Príncipe de Vergara 41\, Madrid
+DESCRIPTION:Ceremonia a las 13:00 en la Capilla Gótica del Colegio Nuest
+ ra Señora del Pilar (entrada por la calle de Príncipe de Vergara\, 41\
+ , Madrid).\n\nCelebración en el Palacio de Aldovea (Carretera Castillo 
+ 10\, Torrejón de Ardoz). Hay autobús de ida y de vuelta.\n\nToda la in
+ formación y la confirmación de asistencia: https://lauyquique.github.i
+ o/
+URL:https://lauyquique.github.io/
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Mañana se casan Lau y Quique
+TRIGGER:-P1D
+END:VALARM
+END:VEVENT
+END:VCALENDAR
