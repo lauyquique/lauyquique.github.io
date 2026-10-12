@@ -403,6 +403,18 @@ main{display:grid;gap:var(--canto);padding:var(--canto)}
   font-size:.92rem;color:#D4E2F1;
 }
 .plazo svg{width:18px;height:18px;flex:none;stroke-width:1.6}
+/* Aviso destacado encima del formulario */
+.aviso-rsvp{
+  display:block;text-align:center;
+  max-width:46ch;margin:var(--e3) auto 0;
+  padding:.85rem 1.2rem;
+  background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.35);
+  border-radius:var(--radio-g);
+  color:#fff;font-size:1.02rem;line-height:1.4;text-wrap:pretty;
+}
+.aviso-rsvp strong{font-weight:700;color:var(--oro-claro)}
+.aviso-rsvp svg{width:20px;height:20px;stroke-width:1.7;display:inline-block;vertical-align:-4px;margin-right:.45rem}
 
 /* Regalo */
 .iban{
